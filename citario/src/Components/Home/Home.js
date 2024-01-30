@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import './Home.css';
 
 const Home = () => {
   const [username, setUsername] = useState('');
@@ -37,7 +38,7 @@ const Home = () => {
   };
 
   return (
-    <section>
+    <section className='Home'>
       {user ? (
         <>
           <h2>Bienvenido a su página de perfil, {user.nombre}</h2>

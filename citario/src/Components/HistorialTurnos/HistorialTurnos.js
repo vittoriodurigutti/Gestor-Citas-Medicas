@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import './HistorialTurnos.css';
+
 
 const HistorialTurnos = () => {
  
@@ -22,7 +24,7 @@ const HistorialTurnos = () => {
   }, []); 
 
   return (
-    <section>
+    <section className="HistorialTurnos">
       <h2>Historial de Turnos</h2>
       <ul>
         {turnos.map((turno) => (

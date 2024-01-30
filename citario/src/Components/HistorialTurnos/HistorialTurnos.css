@@ -1,0 +1,25 @@
+.HistorialTurnos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .HistorialTurnos h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .HistorialTurnos ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .HistorialTurnos li {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
