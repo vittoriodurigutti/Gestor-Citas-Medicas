@@ -1,0 +1,45 @@
+.SignIn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .SignIn h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .SignIn form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  
+  .SignIn label {
+    margin-bottom: 10px;
+  }
+  
+  .SignIn input[type="text"],
+  .SignIn input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .SignIn button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .SignIn button[type="submit"]:hover {
+    background-color: #0056b3;
+  }

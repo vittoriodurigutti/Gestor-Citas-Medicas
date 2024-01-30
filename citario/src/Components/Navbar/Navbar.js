@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Navbar.css'; // Importa el archivo CSS
 
 const Navbar = () => {
-  const [activeSection, setActiveSection] = useState('login');
-  const navigateTo = (section) => {
-    setActiveSection(section);
-  }
-
   return (
-    <nav>
+    <nav className='Navbar'>
       <ul>
-      <ul>
-          <li onClick={() => navigateTo('login')}>Iniciar Sesión</li>
-          <li onClick={() => navigateTo('home')}>Home</li>
-          <li onClick={() => navigateTo('historial')}>Historial de Turnos</li>
-          <li onClick={() => navigateTo('nuevoTurno')}>Pedir Nuevo Turno</li>
-        </ul>
+        <li><Link to="/login">Iniciar Sesión</Link></li>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/historial">Historial de Turnos</Link></li>
+        <li><Link to="/nuevoTurno">Pedir Nuevo Turno</Link></li>
       </ul>
     </nav>
   );

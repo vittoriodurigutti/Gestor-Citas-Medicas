@@ -16,7 +16,6 @@ const NuevoTurno = ({ history }) => {
   const [especialidadSeleccionada, setEspecialidadSeleccionada] = useState('');
   const [profesionalSeleccionado, setProfesionalSeleccionado] = useState('');
   const [fechasDisponibles, setFechasDisponibles] = useState([]);
-
   useEffect(() => {
     const cargarFechasDesdeEndpoint = async () => {
       try {
@@ -28,21 +27,17 @@ const NuevoTurno = ({ history }) => {
         console.error('Error al cargar fechas desde el backend', error);
       }
     };
-
     cargarFechasDesdeEndpoint();
   }, []); 
-
   const handleEspecialidadChange = (e) => {
     const especialidad = e.target.value;
     setEspecialidadSeleccionada(especialidad);
     setProfesionalSeleccionado(''); 
   };
-
   const handleProfesionalChange = (e) => {
     const profesional = e.target.value;
     setProfesionalSeleccionado(profesional);
     };
-
   const handleConfirmarTurno = () => {
     // Aca tengo que agregar la logica para completr el turno,
     // redirección después de 2 segundos
@@ -50,13 +45,11 @@ const NuevoTurno = ({ history }) => {
       history.push('/historial-turnos');
     }, 2000);
   };
-
   const renderFechasDisponibles = () => {
     // Filtrar las fechas disponibles según la especialidad y el profesional seleccionados
     const fechasFiltradas = fechasDisponibles.filter(
       (fecha) => fecha.horarios.length > 0 && fecha.horarios.some((horario) => horario !== 'ocupado')
     );
-
     return (
       <div>
         <h4>Fechas Disponibles</h4>
@@ -70,11 +63,9 @@ const NuevoTurno = ({ history }) => {
       </div>
     );
   };
-
   return (
     <section>
       <h2>Pedir Nuevo Turno</h2>
-
       {/* Selección de especialidad */}
       <div>
         <label>Especialidad:</label>
@@ -87,7 +78,6 @@ const NuevoTurno = ({ history }) => {
           ))}
         </select>
       </div>
-
       {/* Selección de profesional */}
       {especialidadSeleccionada && (
         <div>
@@ -102,10 +92,8 @@ const NuevoTurno = ({ history }) => {
           </select>
         </div>
       )}
-
       {/* Lista de fechas disponibles */}
       {profesionalSeleccionado && renderFechasDisponibles()}
-
       {/* Opción para recordatorio vía WhatsApp */}
       <div>
         <label>
@@ -113,7 +101,6 @@ const NuevoTurno = ({ history }) => {
           Recordatorio vía WhatsApp
         </label>
       </div>
-
       {/* Botón para confirmar turno */}
       {profesionalSeleccionado && (
         <div>
