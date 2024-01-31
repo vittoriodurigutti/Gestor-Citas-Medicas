@@ -7,7 +7,7 @@ const SignIn = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [dni, setDni] = useState('');
-  const [specialty, setSpecialty] = useState('');
+  const [email, setEmail] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -15,24 +15,34 @@ const SignIn = () => {
     console.log('Contraseña:', password);
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    console.log('Nombre:', firstName);
-    console.log('Apellido:', lastName);
-    console.log('DNI:', dni);
-    console.log('Especialidad:', specialty);
+    const response = await fetch('https://citas-medicas-api.onrender.com/doctor', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: firstName,
+        last_name: lastName,
+        email: email,
+        dni: dni,
+        password: password
+      })
+    });
+    const data = await response.json();
+    console.log(data);
   };
 
   return (
     <section className="SignIn">
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleLogin}>
+      <form id="login-form" onSubmit={handleLogin}>
+        <h2>Iniciar Sesión</h2>
         <label>
           Nombre de usuario:
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            placeholder="Ingresa tu nombre de usuario"
           />
         </label>
         <br />
@@ -42,14 +52,15 @@ const SignIn = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="Ingresa tu contraseña"
           />
         </label>
         <br />
         <button type="submit">Iniciar Sesión</button>
       </form>
 
-      <h2>Registrarme</h2>
-      <form onSubmit={handleRegister}>
+      <form id="register-form" onSubmit={handleRegister}>
+        <h2>Registrarme</h2>
         <label>
           Nombre:
           <input
@@ -59,6 +70,7 @@ const SignIn = () => {
             pattern="[A-Za-z]+"
             maxLength="20"
             required
+            placeholder="Ingresa tu nombre"
           />
         </label>
         <br />
@@ -71,6 +83,18 @@ const SignIn = () => {
             pattern="[A-Za-z]+"
             maxLength="20"
             required
+            placeholder="Ingresa tu apellido"
+          />
+        </label>
+        <br />
+        <label>
+          Email:
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder="Ingresa tu email"
           />
         </label>
         <br />
@@ -80,18 +104,21 @@ const SignIn = () => {
             type="text"
             value={dni}
             onChange={(e) => setDni(e.target.value)}
-            pattern="[0-9]+"
-            maxLength="8"
+            pattern="[0-9]{1,8}"
             required
+            placeholder="Ingresa tu DNI"
           />
         </label>
         <br />
         <label>
-          Especialidad:
+          Contraseña:
           <input
-            type="text"
-            value={specialty}
-            onChange={(e) => setSpecialty(e.target.value)}
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}"
+            required
+            placeholder="Ingresa tu contraseña"
           />
         </label>
         <br />
