@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí debes llamar a tu endpoint para validar el usuario y la contraseña
-    // Supongamos que la respuesta es un objeto con los datos del usuario
     const response = await fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -22,8 +20,6 @@ const Home = () => {
   };
 
   const handleEmailChange = async (newEmail) => {
-    // Aquí debes llamar a tu endpoint para cambiar el email del usuario
-    // Supongamos que la respuesta es un objeto con los datos actualizados del usuario
     const response = await fetch('/api/change-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -34,7 +30,7 @@ const Home = () => {
   };
 
   const goToNuevoTurno = () => {
-    history.push('/nuevoTurno');
+    navigate('/nuevoTurno');
   };
 
   return (
@@ -42,7 +38,6 @@ const Home = () => {
       {user ? (
         <>
           <h2>Bienvenido a su página de perfil, {user.nombre}</h2>
-
           <div>
             <h3>Perfil del Usuario</h3>
             <p>Nombre: {user.nombre}</p>
@@ -50,7 +45,6 @@ const Home = () => {
             <p>Email: {user.email} <button onClick={() => handleEmailChange('nuevoEmail@example.com')}>Cambiar Email</button></p>
             <p>DNI: {user.dni}</p>
           </div>
-
           <div>
             <h3>Mis Turnos</h3>
             {user.turnos.map(turno => (
@@ -62,7 +56,6 @@ const Home = () => {
               </div>
             ))}
           </div>
-
           <button onClick={goToNuevoTurno}>Pedir Nuevo Turno</button>
         </>
       ) : (
