@@ -3,9 +3,10 @@ import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom
 import './App.css';
 import Home from './Components/Home/Home.js';
 import Navbar from './Components/Navbar/Navbar.js';
-import SingIn from './Components/SingIn/SingIn.js';
-import HistorialTurnos from './Components/HistorialTurnos/HistorialTurnos.js';
+import SignIn from './Components/SignIn/SignIn.js';
+import AppointmentHistory from './Components/AppointmentHistory/appointmentHistory.js';
 import NuevoTurno from './Components/NuevoTurno/NuevoTurno.js';
+import DoctorPage from './Components/Shifts/shifts.js';
 
 function App() {
   return (
@@ -16,11 +17,12 @@ function App() {
           <Navbar />
         </header>
         <div className="container">
-          <Routes className= "listaContainer">
-            <Route path="/login" element={<SingIn/>} />
+          <Routes className= "listContainer">
+            <Route path="/login" element={<SignIn/>} />
             <Route path="/" element={<Home/>} />
-            <Route path="/historial" element={<HistorialTurnos/>} />
+            <Route path="/historial" element={<AppointmentHistory/>} />
             <Route path="/nuevoTurno" element={<NuevoTurno/>} />
+            <Route path="/perfilDoctores" element={<DoctorPage/>} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>
