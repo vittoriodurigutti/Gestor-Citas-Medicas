@@ -10,22 +10,6 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetch('https://citas-medicas-api.onrender.com/patient', {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setUser(data);
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    };
-
     const fetchAppointments = async () => {
       try {
         const response = await fetch('https://citas-medicas-api.onrender.com/appointment', {
@@ -42,42 +26,32 @@ const Home = () => {
       }
     };
 
-    fetchUser();
     fetchAppointments();
   }, [email, password]);
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch('https://citas-medicas-api.onrender.com/patient', {
-        method: 'POST',
+        method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
       });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setUser(data);
+      const user = data.find(user => user.email === email && user.password === password);
+      if (user) {
+        setUser({
+          name: user.name,
+          last_name: user.last_name,
+          email: user.email,
+        });
+      } else {
+        console.log('Usuario no encontrado');
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
-    }
-  };
-
-  const handleEmailChange = async (newEmail) => {
-    try {
-      const response = await fetch('https://citas-medicas-api.onrender.com/patient', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, newEmail })
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setUser(data);
-    } catch (error) {
-      console.error('Error changing email:', error);
     }
   };
 
@@ -94,8 +68,7 @@ const Home = () => {
             <h3>Perfil del Usuario</h3>
             <p>Nombre: {user.name}</p>
             <p>Apellido: {user.last_name}</p>
-            <p>Email: {user.email} <button onClick={() => handleEmailChange('nuevoEmail@example.com')}>Cambiar Email</button></p>
-            <p>DNI: {user.dni}</p>
+            <p>Email: {user.email} </p>
           </div>
           <div>
             <h3>Mis Turnos</h3>
@@ -111,7 +84,7 @@ const Home = () => {
           <button onClick={goToNuevoTurno}>Pedir Nuevo Turno</button>
         </>
       ) : (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogin}>
           <label>
             Correo electrónico:
             <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
@@ -128,5 +101,3 @@ const Home = () => {
 };
 
 export default Home;
-
-

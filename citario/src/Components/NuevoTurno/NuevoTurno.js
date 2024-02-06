@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './NuevoTurno.css'
 
 const NuevoTurno = ({ history }) => {
   const especialidades = ["Especialidad1", "Especialidad2", "Especialidad3"];
@@ -51,7 +52,7 @@ const NuevoTurno = ({ history }) => {
       (fecha) => fecha.horarios.length > 0 && fecha.horarios.some((horario) => horario !== 'ocupado')
     );
     return (
-      <div>
+      <div className='NuevoTurno'>
         <h4>Fechas Disponibles</h4>
         <ul>
           {fechasFiltradas.map((fecha, index) => (
@@ -64,9 +65,8 @@ const NuevoTurno = ({ history }) => {
     );
   };
   return (
-    <section>
+    <section className='NuevoTurno'>
       <h2>Pedir Nuevo Turno</h2>
-      {/* Selección de especialidad */}
       <div>
         <label>Especialidad:</label>
         <select onChange={handleEspecialidadChange} value={especialidadSeleccionada}>
