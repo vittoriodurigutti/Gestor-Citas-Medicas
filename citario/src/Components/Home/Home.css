@@ -1,45 +1,67 @@
 .Home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-  
-  .Home h2, .Home h3 {
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .Home div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 20px;
-  }
-  
-  .Home label {
-    margin-bottom: 10px;
-  }
-  
-  .Home input[type="text"],
-  .Home input[type="password"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.Home h2, .Home h3 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.Home div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.Home label {
+  margin-bottom: 10px;
+}
+
+.Home input[type="email"],
+.Home input[type="password"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px; 
+}
+
+.Home input[type="email"]:focus,
+.Home input[type="password"]:focus {
+  outline: none; /* Elimina el contorno predeterminado */
+  box-shadow: none; /* Elimina la sombra de la caja predeterminada */
+  /* Aquí puedes agregar tus propios estilos para el estado de enfoque */
+}
+
+
+.Home button {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+}
+
+.Home button:hover {
+  background-color: #0056b3;
+}
+
+
+@media (max-width: 768px) {
+  .Home {
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    width: 100%;
   }
-  
-  .Home button {
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .Home button:hover {
-    background-color: #0056b3;
-  }
+}

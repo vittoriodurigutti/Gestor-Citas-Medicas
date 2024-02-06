@@ -1,0 +1,61 @@
+.DoctorPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .DoctorPage h1, .DoctorPage h2 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .DoctorPage div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .DoctorPage label {
+    margin-bottom: 10px;
+  }
+  
+  .DoctorPage input[type="email"],
+  .DoctorPage input[type="password"],
+  .DoctorPage input[type="text"],
+  .DoctorPage textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px; 
+    color: #333; 
+  }
+  
+  .DoctorPage button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px; 
+  }
+  
+  .DoctorPage button:hover {
+    background-color: #0056b3;
+  }
+  
+  @media (max-width: 768px) {
+    .DoctorPage {
+      padding: 10px;
+    }
+  }

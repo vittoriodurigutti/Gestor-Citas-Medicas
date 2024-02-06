@@ -11,21 +11,35 @@ const Home = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await fetch('https://citas-medicas-api.onrender.com/patient', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      });
-      const data = await response.json();
-      setUser(data);
+      try {
+        const response = await fetch('https://citas-medicas-api.onrender.com/patient', {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setUser(data);
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
     };
 
     const fetchAppointments = async () => {
-      const response = await fetch('https://citas-medicas-api.onrender.com/appointment', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      });
-      const data = await response.json();
-      setAppointments(data);
+      try {
+        const response = await fetch('https://citas-medicas-api.onrender.com/appointment', {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setAppointments(data);
+      } catch (error) {
+        console.error('Error fetching appointments:', error);
+      }
     };
 
     fetchUser();
@@ -34,23 +48,37 @@ const Home = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    });
-    const data = await response.json();
-    setUser(data);
+    try {
+      const response = await fetch('https://citas-medicas-api.onrender.com/patient', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setUser(data);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   const handleEmailChange = async (newEmail) => {
-    const response = await fetch('/api/change-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, newEmail })
-    });
-    const data = await response.json();
-    setUser(data);
+    try {
+      const response = await fetch('https://citas-medicas-api.onrender.com/patient', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, newEmail })
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setUser(data);
+    } catch (error) {
+      console.error('Error changing email:', error);
+    }
   };
 
   const goToNuevoTurno = () => {
@@ -100,4 +128,5 @@ const Home = () => {
 };
 
 export default Home;
+
 
