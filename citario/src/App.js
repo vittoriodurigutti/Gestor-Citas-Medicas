@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
 import './App.css';
 import Home from './Components/Home/Home.js';
@@ -9,6 +9,8 @@ import NuevoTurno from './Components/NuevoTurno/NuevoTurno.js';
 import DoctorPage from './Components/Shifts/shifts.js';
 
 function App() {
+  const [patientId, setPatientId] = useState(null);
+
   return (
     <Router>
       <div className="App">
@@ -19,9 +21,9 @@ function App() {
         <div className="container">
           <Routes className= "listContainer">
             <Route path="/login" element={<SignIn/>} />
-            <Route path="/" element={<Home/>} />
+            <Route path="/" element={<Home setPatientId={setPatientId}/>} />
             <Route path="/historial" element={<AppointmentHistory/>} />
-            <Route path="/nuevoTurno" element={<NuevoTurno/>} />
+            <Route path="/nuevoTurno" element={<NuevoTurno patientId={patientId}/>} />
             <Route path="/perfilDoctores" element={<DoctorPage/>} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

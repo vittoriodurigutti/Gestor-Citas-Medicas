@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-const NuevoTurno = () => {
+const NuevoTurno = ({ patientId }) => {
   const [doctors, setDoctors] = useState([]);
-  const [selectedSpecialization, setSelectedSpecialization] = useState(null);
+  const [appointments, setAppointments] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [selectedDay, setSelectedDay] = useState(0);
+  const [selectedTime, setSelectedTime] = useState(null);
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -19,46 +21,88 @@ const NuevoTurno = () => {
       }
     };
 
-    fetchDoctors();
-  }, []);
+    const fetchAppointments = async () => {
+      try {
+        const response = await fetch('https://citas-medicas-api.onrender.com/appointment');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setAppointments(data);
+      } catch (error) {
+        console.error('Error fetching appointments:', error);
+      }
+    };
 
-  const handleSpecializationChange = (e) => {
-    setSelectedSpecialization(e.target.value);
-    setSelectedDoctor(null);
-  };
+    fetchDoctors();
+    fetchAppointments();
+  }, []);
 
   const handleDoctorChange = (e) => {
     setSelectedDoctor(e.target.value);
   };
 
-  const specializations = [...new Set(doctors.map(doctor => doctor.specialization.name))];
-  const doctorsBySpecialization = doctors.filter(doctor => doctor.specialization.name === selectedSpecialization);
+  const handleDayChange = (index) => {
+    setSelectedDay(index);
+  };
+
+  const handleTimeSelect = (time) => {
+    setSelectedTime(time);
+  };
+
+  const handleAppointmentCreate = async () => {
+    try {
+      const date = new Date(Date.now() + selectedDay * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+      const response = await fetch('https://citas-medicas-api.onrender.com/appointment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          date,
+          time: selectedTime,
+          doctor: selectedDoctor,
+          patient: patientId,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      console.log('Appointment created successfully');
+    } catch (error) {
+      console.error('Error creating appointment:', error);
+    }
+  };
+
   const selectedDoctorDetails = doctors.find(doctor => doctor._id === selectedDoctor);
+  const availableWorkSchedule = selectedDoctorDetails?.workSchedule.filter(time => {
+    const dateTime = new Date(Date.now() + selectedDay * 24 * 60 * 60 * 1000).toISOString().split('T')[0] + 'T' + time + ':00.000Z';
+    return !appointments.some(appointment => appointment.doctor._id === selectedDoctor && appointment.dateTime === dateTime);
+  });
 
   return (
     <div>
-      <select onChange={handleSpecializationChange}>
-        <option>Seleccione servicio</option>
-        {specializations.map((specialization, index) => (
-          <option key={index} value={specialization}>{specialization}</option>
+      <select onChange={handleDoctorChange}>
+        <option>Seleccione doctor</option>
+        {doctors.map(doctor => (
+          <option key={doctor._id} value={doctor._id}>{doctor.name} {doctor.last_name}</option>
         ))}
       </select>
 
-      {selectedSpecialization && (
-        <select onChange={handleDoctorChange}>
-          <option>Seleccione doctor</option>
-          {doctorsBySpecialization.map(doctor => (
-            <option key={doctor._id} value={doctor._id}>{doctor.name} {doctor.last_name} ({doctor.startTime}-{doctor.endTime})</option>
-          ))}
-        </select>
-      )}
-
       {selectedDoctorDetails && (
-        <ul>
-          {selectedDoctorDetails.workSchedule.map((time, index) => (
-            <li key={index}>{time}</li>
+        <div>
+          {Array.from({ length: 7 }, (_, index) => (
+            <button key={index} onClick={() => handleDayChange(index)}>
+              {new Date(Date.now() + index * 24 * 60 * 60 * 1000).toLocaleDateString()}
+            </button>
           ))}
-        </ul>
+          <ul>
+            {availableWorkSchedule?.map((time, index) => (
+              <li key={index} onClick={() => handleTimeSelect(time)}>{time}</li>
+            ))}
+          </ul>
+          {selectedTime && (
+            <button onClick={handleAppointmentCreate}>Crear cita</button>
+          )}
+        </div>
       )}
     </div>
   );
