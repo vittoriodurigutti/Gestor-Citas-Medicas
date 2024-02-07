@@ -69,17 +69,22 @@ const Home = () => {
             <p>Nombre: {user.name}</p>
             <p>Apellido: {user.last_name}</p>
             <p>Email: {user.email} </p>
+            <p>DNI: {user.dni}</p>
           </div>
           <div>
             <h3>Mis Turnos</h3>
-            {appointments.filter(appointment => appointment.patient._id === user._id).map(turno => (
-              <div key={turno._id}>
-                <p>Especialización: {turno.specialization.name}</p>
-                <p>Nombre del Doctor: {turno.doctor.name} {turno.doctor.last_name}</p>
-                <p>Fecha del Turno: {turno.dateTime}</p>
-                <p>Estado: {turno.status}</p>
-              </div>
-            ))}
+            {appointments.filter(appointment => appointment.patient._id === user._id).length > 0 ? (
+              appointments.filter(appointment => appointment.patient._id === user._id).map(turno => (
+                <div key={turno._id}>
+                  <p>Especialización: {turno.specialization.name}</p>
+                  <p>Nombre del Doctor: {turno.doctor.name} {turno.doctor.last_name}</p>
+                  <p>Fecha del Turno: {turno.dateTime}</p>
+                  <p>Estado: {turno.status}</p>
+                </div>
+              ))
+            ) : (
+              <p>De momento no hay citas registradas.</p>
+            )}
           </div>
           <button onClick={goToNuevoTurno}>Pedir Nuevo Turno</button>
         </>
@@ -98,6 +103,7 @@ const Home = () => {
       )}
     </section>
   );
+  
 };
 
 export default Home;
