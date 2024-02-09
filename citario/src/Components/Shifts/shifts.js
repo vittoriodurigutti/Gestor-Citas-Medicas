@@ -45,6 +45,18 @@ const DoctorPage = () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
+            if (!startDate || !endDate) {
+                alert('Por favor, selecciona las fechas de inicio y fin.');
+                return;
+              }
+              if (reason.length < 5) {
+                alert('El motivo debe tener al menos 5 caracteres.');
+                return;
+              }
+              if (observation.length < 10) {
+                alert('Las observaciones deben tener al menos 10 caracteres.');
+                return;
+              }
             const data = await response.json();
             console.log(data);
         } catch (error) {
@@ -70,6 +82,22 @@ const DoctorPage = () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
+            if (!startDate) {
+                alert('Por favor, selecciona una fecha.');
+                return;
+              }
+              if (timeSlots.length === 0) {
+                alert('Por favor, selecciona al menos un horario.');
+                return;
+              }
+              if (reason.length < 5) {
+                alert('El motivo debe tener al menos 5 caracteres.');
+                return;
+              }
+              if (observation.length < 10) {
+                alert('Las observaciones deben tener al menos 10 caracteres.');
+                return;
+              }
             const data = await response.json();
             console.log(data);
         } catch (error) {
@@ -100,7 +128,12 @@ const DoctorPage = () => {
             <button onClick={handleDaysOffSubmit}>Enviar</button>
             <h2>Cargar Ausencia en Turno de Trabajo</h2>
             <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} placeholder="Fecha" />
-            <input type="text" value={timeSlots} onChange={e => setTimeSlots(e.target.value)} placeholder="Horarios, separados por comas" />
+            <select multiple value={timeSlots} onChange={e => setTimeSlots(Array.from(e.target.selectedOptions, option => option.value))}>
+            {doctorData.workSchedule.map((timeSlot, index) => (
+            <option key={index} value={timeSlot} selected>{timeSlot}</option>
+            ))}
+            </select>
+
             <input type="text" value={reason} onChange={e => setReason(e.target.value)} placeholder="Motivo" maxLength="20" />
             <textarea value={observation} onChange={e => setObservation(e.target.value)} placeholder="Observaciones" maxLength="200" />
             <button onClick={handleAbsenceSubmit}>Enviar</button>
@@ -109,3 +142,4 @@ const DoctorPage = () => {
 };
 
 export default DoctorPage;
+
