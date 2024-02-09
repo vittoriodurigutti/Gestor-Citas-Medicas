@@ -38,9 +38,8 @@
 
 .Home input[type="email"]:focus,
 .Home input[type="password"]:focus {
-  outline: none; /* Elimina el contorno predeterminado */
-  box-shadow: none; /* Elimina la sombra de la caja predeterminada */
-  /* Aquí puedes agregar tus propios estilos para el estado de enfoque */
+  outline: none; 
+  box-shadow: none;
 }
 
 

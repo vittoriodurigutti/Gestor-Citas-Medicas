@@ -46,6 +46,7 @@ const SignIn = () => {
               name: firstName,
               last_name: lastName,
               email: email,
+              dni: dni,
               password: password
             })
           });

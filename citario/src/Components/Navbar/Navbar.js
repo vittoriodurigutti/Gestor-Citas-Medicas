@@ -13,7 +13,6 @@ const Navbar = () => {
       <Link to="/">Inicio</Link>
       {patientId ? (
         <>
-          <Link to="/perfilDoctores">Doctores</Link>
           <Link to="/historial">Historial de Citas</Link>
           <Link to="/nuevoTurno">Nuevo Turno</Link>
           <span>{patientId.name} {patientId.last_name}</span>

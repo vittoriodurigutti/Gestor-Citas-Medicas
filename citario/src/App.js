@@ -9,6 +9,7 @@ import AppointmentHistory from './Components/AppointmentHistory/appointmentHisto
 import NuevoTurno from './Components/NuevoTurno/NuevoTurno.js';
 import DoctorPage from './Components/Shifts/shifts.js';
 import ContextoPaciente from './Components/ContextoPaciente.js';
+import AddDoctor from './Components/addDoctor/addDoctor.js';
 
 function App() {
   const [patientId, setPatientId] = useState(null);
@@ -23,11 +24,12 @@ function App() {
           </header>
           <div className="container">
             <Routes className= "listContainer">
-              <Route path="/login" element={<SignIn/>} />
+              <Route path="/Login" element={<SignIn/>} />
               <Route path="/" element={<Home/>} />
-              <Route path="/historial" element={<AppointmentHistory/>} />
-              <Route path="/nuevoTurno" element={<NuevoTurno/>} />
-              <Route path="/perfilDoctores" element={<DoctorPage/>} />
+              <Route path="/Historial" element={<AppointmentHistory/>} />
+              <Route path="/Nuevo_Turno" element={<NuevoTurno/>} />
+              <Route path="/Doctores" element={<DoctorPage/>} />
+              <Route path= "/Sumar_Doctor" element={<AddDoctor/>} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </div>
