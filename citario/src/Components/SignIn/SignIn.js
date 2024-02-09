@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useContext } from 'react';
+import ContextoPaciente from '../ContextoPaciente';
 import './SignIn.css';
 
 const SignIn = () => {
+    const { setPatientId } = useContext(ContextoPaciente);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -14,40 +15,54 @@ const SignIn = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.get(`https://citas-medicas-api.onrender.com/patient?email=${email}&password=${password}`);
-            console.log('Datos del paciente:', response.data);
+          const response = await fetch(`https://citas-medicas-api.onrender.com/patient?email=${email}&password=${password}`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = await response.json();
+          const user = data.find(user => user.email === email && user.password === password);
+          if (user) {
+            console.log('ID del paciente:', user._id);
+            setPatientId(user._id); 
             setLoginError('');
+          } else {
+            console.log('Usuario no encontrado');
+            setLoginError('No se encuentra usuario registrado bajo la casilla indicada');
+          }
         } catch (error) {
-            if (error.response && error.response.status === 404) {
-                setLoginError('No se encuentra usuario registrado bajo la casilla indicada');
-            } else if (error.response && error.response.status === 401) {
-                setLoginError('Contraseña incorrecta');
-            } else {
-                setLoginError('Error desconocido');
-            }
+          console.error('Error desconocido:', error);
+          setLoginError('Error desconocido');
         }
     };
+        
 
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://citas-medicas-api.onrender.com/doctor', {
-                name: firstName,
-                last_name: lastName,
-                email: email,
-                dni: dni,
-                password: password
-            });
-            console.log(response.data);
-            setRegisterError('');
+          const response = await fetch('https://citas-medicas-api.onrender.com/patient', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: firstName,
+              last_name: lastName,
+              email: email,
+              password: password
+            })
+          });
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = await response.json();
+          console.log(data);
+          setRegisterError('');
         } catch (error) {
-            if (error.response && error.response.status === 409) {
-                setRegisterError('El usuario que intenta registrar ya existe');
-            } else {
-                setRegisterError('Error desconocido');
-            }
+          if (error.message.includes('409')) {
+            setRegisterError('El usuario que intenta registrar ya existe');
+          } else {
+            setRegisterError('Error desconocido');
+          }
         }
-    };
+      };
 
     return (
         <section className="SignIn">

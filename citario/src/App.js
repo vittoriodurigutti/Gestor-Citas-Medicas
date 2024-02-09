@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
 import './App.css';
@@ -7,32 +8,35 @@ import SignIn from './Components/SignIn/SignIn.js';
 import AppointmentHistory from './Components/AppointmentHistory/appointmentHistory.js';
 import NuevoTurno from './Components/NuevoTurno/NuevoTurno.js';
 import DoctorPage from './Components/Shifts/shifts.js';
+import ContextoPaciente from './Components/ContextoPaciente.js';
 
 function App() {
   const [patientId, setPatientId] = useState(null);
 
   return (
-    <Router>
-      <div className="App">
-        <header className="header">
-          <img src="https://www.shutterstock.com/image-photo/doctor-man-stethoscope-hospital-260nw-555894940.jpg" alt="Portada" />
-          <Navbar />
-        </header>
-        <div className="container">
-          <Routes className= "listContainer">
-            <Route path="/login" element={<SignIn/>} />
-            <Route path="/" element={<Home setPatientId={setPatientId}/>} />
-            <Route path="/historial" element={<AppointmentHistory/>} />
-            <Route path="/nuevoTurno" element={<NuevoTurno patientId={patientId}/>} />
-            <Route path="/perfilDoctores" element={<DoctorPage/>} />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
+    <ContextoPaciente.Provider value={{ patientId, setPatientId }}>
+      <Router>
+        <div className="App">
+          <header className="header">
+            <img src="https://www.shutterstock.com/image-photo/doctor-man-stethoscope-hospital-260nw-555894940.jpg" alt="Portada" />
+            <Navbar />
+          </header>
+          <div className="container">
+            <Routes className= "listContainer">
+              <Route path="/login" element={<SignIn/>} />
+              <Route path="/" element={<Home/>} />
+              <Route path="/historial" element={<AppointmentHistory/>} />
+              <Route path="/nuevoTurno" element={<NuevoTurno/>} />
+              <Route path="/perfilDoctores" element={<DoctorPage/>} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </div>
+          <footer className="footer">
+            © 2024 Hospital XYZ. Todos los derechos reservados.
+          </footer>
         </div>
-        <footer className="footer">
-          © 2024 Hospital XYZ. Todos los derechos reservados.
-        </footer>
-      </div>
-    </Router>
+      </Router>
+    </ContextoPaciente.Provider>
   );
 }
 

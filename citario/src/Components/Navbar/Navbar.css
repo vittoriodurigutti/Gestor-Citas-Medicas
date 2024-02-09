@@ -3,25 +3,29 @@
   color: white;
   position: relative;
   z-index: 1; 
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 20px;
 }
 
 .Navbar button {
-  position: absolute;
-  left: 10px;
-  top: 10px;
   background: none;
   border: none;
-  color: #007BFF; 
-  font-size: 24px;
+  color: white;
+  font-size: 16px; 
   cursor: pointer;
   transition: left 0.3s ease; 
   z-index: 2; 
   display: none;
 }
 
+.Navbar span:hover + button {
+  display: block; 
+}
+
 .Navbar ul {
   display: flex;
-  justify-content: space-between; 
   list-style: none;
   padding: 0;
   margin: 0;
@@ -31,7 +35,6 @@
 .Navbar li {
   padding: 10px;
   cursor: pointer;
-  width: 90%;
 }
 
 .Navbar li:hover {
@@ -41,23 +44,30 @@
 .Navbar a {
   color: white; 
   text-decoration: none; 
+  font-size: 16px; 
 }
 
 .Navbar a:hover {
   color: #ddd;
 }
 
-#loginButton{
-  margin-left: 'auto';
+.Navbar span {
+  color: white;
+  font-size: 16px; 
+}
+
+.Navbar span:hover {
+  color: #007BFF;
 }
 
 @media (max-width: 768px) {
-
   .Navbar ul {
     flex-direction: column;
-    position: fixed; 
+    position: absolute; 
     justify-content: flex-start;
     align-items: flex-start;
+    top: 41%;
+    bottom: 0;
     width: 200px;
     height: 100vh;
     left: -200px;

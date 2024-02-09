@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import ContextoPaciente from '../ContextoPaciente';
 
-const NuevoTurno = ({ patientId }) => {
+
+const NuevoTurno = ({  }) => {
   const [doctors, setDoctors] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [selectedDay, setSelectedDay] = useState(0);
   const [selectedTime, setSelectedTime] = useState(null);
+  const { patientId } = useContext(ContextoPaciente);
+
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -38,6 +42,7 @@ const NuevoTurno = ({ patientId }) => {
     fetchAppointments();
   }, []);
 
+  
   const handleDoctorChange = (e) => {
     setSelectedDoctor(e.target.value);
   };
@@ -64,6 +69,8 @@ const NuevoTurno = ({ patientId }) => {
         }),
       });
       if (!response.ok) {
+        const errorDetails = await response.text();
+        console.error('Error details:', errorDetails);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       console.log('Appointment created successfully');
@@ -96,7 +103,9 @@ const NuevoTurno = ({ patientId }) => {
           ))}
           <ul>
             {availableWorkSchedule?.map((time, index) => (
-              <li key={index} onClick={() => handleTimeSelect(time)}>{time}</li>
+              <li key={index} onClick={() => handleTimeSelect(time)} style={{ backgroundColor: selectedTime === time ? 'lightgray' : 'white' }}>
+                {time}
+              </li>
             ))}
           </ul>
           {selectedTime && (

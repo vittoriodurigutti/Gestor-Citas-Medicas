@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { FaUser, FaBars } from 'react-icons/fa';
+import ContextoPaciente from '../ContextoPaciente';
+
 import './Navbar.css';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const { patientId, setPatientId } = useContext(ContextoPaciente);
+  const handleLogout = () => {setPatientId(null);}
 
   return (
-    <nav className='Navbar'>
-      <button onClick={toggleMenu} className={isOpen ? 'open' : ''}><FaBars /></button>
-      <ul className={isOpen ? 'open' : ''}>
-        <li><Link to="/" onClick={toggleMenu}>Home</Link></li>
-        <li><Link to="/historial" onClick={toggleMenu}>Historial de Turnos</Link></li>
-        <li><Link to="/nuevoTurno" onClick={toggleMenu}>Solicite su Turno</Link></li>
-        <li><Link to="/perfilDoctores" onClick={toggleMenu}>Sitio para Personal</Link></li>
-        <li style={{ marginLeft: 'auto' }}><Link to="/login"><FaUser /> Iniciar Sesión</Link></li>
-      </ul>
+    <nav className="Navbar">
+      <Link to="/">Inicio</Link>
+      {patientId ? (
+        <>
+          <Link to="/perfilDoctores">Doctores</Link>
+          <Link to="/historial">Historial de Citas</Link>
+          <Link to="/nuevoTurno">Nuevo Turno</Link>
+          <span>{patientId.name} {patientId.last_name}</span>
+          <button onClick={handleLogout}>Cerrar Sesión</button> 
+        </>
+      ) : (
+        <Link to="/login">Iniciar Sesión</Link>
+      )}
     </nav>
   );
 };
