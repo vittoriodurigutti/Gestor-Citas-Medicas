@@ -4,8 +4,10 @@ import './SignIn.css';
 
 const SignIn = () => {
     const { setPatientId } = useContext(ContextoPaciente);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [emailLogin, setEmailLogin] = useState('');
+    const [emailRegister, setEmailRegister] = useState('');
+    const [passwordLogin, setPasswordLogin] = useState('');
+    const [passwordRegister, setPasswordRegister] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [dni, setDni] = useState('');
@@ -15,12 +17,12 @@ const SignIn = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-          const response = await fetch(`https://citas-medicas-api.onrender.com/patient?email=${email}&password=${password}`);
+          const response = await fetch(`https://citas-medicas-api.onrender.com/patient?email=${emailLogin}&password=${passwordLogin}`);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           const data = await response.json();
-          const user = data.find(user => user.email === email && user.password === password);
+          const user = data.find(user => user.email === emailLogin && user.password === passwordLogin);
           if (user) {
             console.log('ID del paciente:', user._id);
             setPatientId(user._id); 
@@ -45,9 +47,9 @@ const SignIn = () => {
             body: JSON.stringify({
               name: firstName,
               last_name: lastName,
-              email: email,
+              email: emailRegister,
               dni: dni,
-              password: password
+              password: passwordRegister
             })
           });
           if (!response.ok) {
@@ -72,8 +74,8 @@ const SignIn = () => {
                 <label>
                     <input
                         type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={emailLogin}
+                        onChange={(e) => setEmailLogin(e.target.value)}
                         placeholder="Ingresa tu correo electrónico"
                     />
                 </label>
@@ -81,8 +83,8 @@ const SignIn = () => {
                 <label>
                     <input
                         type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={passwordLogin}
+                        onChange={(e) => setPasswordLogin(e.target.value)}
                         placeholder="Ingresa tu contraseña"
                     />
                 </label>
@@ -120,8 +122,8 @@ const SignIn = () => {
                 <label>
                     <input
                         type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={emailRegister}
+                        onChange={(e) => setEmailRegister(e.target.value)}
                         required
                         placeholder="Ingresa tu email"
                     />
@@ -141,8 +143,8 @@ const SignIn = () => {
                 <label>
                     <input
                         type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={passwordRegister}
+                        onChange={(e) => setPasswordRegister(e.target.value)}
                         pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}"
                         required
                         placeholder="Ingresa tu contraseña"
