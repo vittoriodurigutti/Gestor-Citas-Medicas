@@ -1,3 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 40;
+  background-color: #f4f4f4;
+  font-family: 'Open Sans', sans-serif;
+}
+
 .appointmentHistory {
     display: flex;
     flex-direction: column;

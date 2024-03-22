@@ -19,7 +19,7 @@ function App() {
       <Router>
         <div className="App">
           <header className="header">
-            <img src="https://www.shutterstock.com/image-photo/doctor-man-stethoscope-hospital-260nw-555894940.jpg" alt="Portada" />
+            <img src="https://wallpapercave.com/wp/wp3487933.jpg" alt="Portada" />
             <Navbar />
           </header>
           <div className="container">

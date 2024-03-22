@@ -16,7 +16,6 @@ const AddDoctor = () => {
   });
 
   useEffect(() => {
-    // Fetch specializations
     axios
       .get("https://citas-medicas-api.onrender.com/specialization")
       .then((response) => {
@@ -37,9 +36,7 @@ const AddDoctor = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    // Convertir el objeto formData a JSON
     const jsonData = JSON.stringify(formData);
-    // Realizar la solicitud POST con jsonData en el cuerpo
     axios
       .post("https://citas-medicas-api.onrender.com/doctor", jsonData, {
         headers: {
@@ -48,19 +45,18 @@ const AddDoctor = () => {
       })
       .then((response) => {
         console.log("Doctor added successfully:", response.data);
-        // Aquí podrías redirigir a otra página o mostrar un mensaje de éxito
       })
       .catch((error) => {
         console.error("Error adding doctor:", error);
-        // Aquí podrías mostrar un mensaje de error al usuario
       });
   };
 
   return (
     <div>
-      <h2>Add Doctor</h2>
+      <h3>Agregar un nuevo doctor a la estructura</h3>
+      <br></br>
       <form onSubmit={handleSubmit}>
-        <label>Name:</label>
+        <label>Nombre:</label>
         <input
           type="text"
           name="name"
@@ -68,7 +64,7 @@ const AddDoctor = () => {
           onChange={handleChange}
           required
         />
-        <label>Last Name:</label>
+        <label>Apellido:</label>
         <input
           type="text"
           name="last_name"
@@ -92,7 +88,7 @@ const AddDoctor = () => {
           onChange={handleChange}
           required
         />
-        <label>Password:</label>
+        <label>Contraseña:</label>
         <input
           type="password"
           name="password"
@@ -100,21 +96,21 @@ const AddDoctor = () => {
           onChange={handleChange}
           required
         />
-        <label>Specialization:</label>
+        <label>Especialización:</label>
         <select
           name="specialization"
           value={formData.specialization}
           onChange={handleChange}
           required
         >
-          <option value="">Select Specialization</option>
+          <option value="">Seleccione Especialidad</option>
           {specializations.map((spec) => (
             <option key={spec._id} value={spec._id}>
               {spec.name}
             </option>
           ))}
         </select>
-        <label>Start Time:</label>
+        <label>Hora de inicio de jornada:</label>
         <input
           type="time"
           name="startTime"
@@ -122,7 +118,7 @@ const AddDoctor = () => {
           onChange={handleChange}
           required
         />
-        <label>End Time:</label>
+        <label>Hora de fin de jornada:</label>
         <input
           type="time"
           name="endTime"
@@ -130,7 +126,7 @@ const AddDoctor = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit">Submit</button>
+        <button type="submit">Enviar</button>
       </form>
     </div>
   );

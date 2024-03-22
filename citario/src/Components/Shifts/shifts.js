@@ -24,7 +24,7 @@ const DoctorPage = () => {
             const doctor = data.find(doctor => doctor.email === email && doctor.password === password);
             if (doctor) {
                 console.log('ID del doctor:', doctor._id);
-                setDoctorData(doctor); // Aquí estableces los datos del doctor
+                setDoctorData(doctor); 
             } else {
                 console.log('Doctor no encontrado');
             }
@@ -54,7 +54,7 @@ const DoctorPage = () => {
             observationVacation,
         };
 
-        console.log('Datos enviados:', payload); // Aquí agregas el console.log
+        console.log('Datos enviados:', payload); 
 
         try {
             const response = await fetch('https://citas-medicas-api.onrender.com/daysoff', {
@@ -94,7 +94,7 @@ const DoctorPage = () => {
             doctor: doctorData._id,
             appointmentsOff: [{
                 date: startDateAbsence,
-                timeSlots: timeSlots/*.split(',').map(time => time.trim())*/,
+                timeSlots: timeSlots
             }],
             reasonAbsence,
             observationAbsence,

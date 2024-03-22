@@ -49,11 +49,13 @@
 
 .Navbar a:hover {
   color: #ddd;
+  
 }
 
 .Navbar span {
   color: white;
-  font-size: 16px; 
+  font-size: 16px;
+
 }
 
 .Navbar span:hover {

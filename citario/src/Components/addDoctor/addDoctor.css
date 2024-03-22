@@ -4,16 +4,15 @@
     box-sizing: border-box;
 }
 
-/* Estilos generales */
 body {
     padding: 40;
-    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .container {
     max-width: 600px;
-    margin: 0 auto;
+    margin: 10px auto;
     padding: 50px 20px;
     background-color: #fff;
     border-radius: 8px;
