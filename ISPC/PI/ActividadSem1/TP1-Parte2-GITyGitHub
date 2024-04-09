@@ -1,0 +1,17 @@
+GitHub: https://github.com/vittoriodurigutti
+
+GitHub es un servicio basado en la nube que aloja un sistema de control de versiones (VCS) llamado Git. Esto permite identificar con facilidad cambios en tu codigo. Y a la par parmite a por ejemplo, un equipo de trabajo colaborar o compartirlo teniendo vista clara en las modificaciones, previniendo que se generen errores en la estrcutura principal o revirtiendo cambios no deseados. A forma de graficarlo, podemos expresarlo como un arbol, en el que podemos crear ramas salidas de un tronco, y que son faciles de visualizar y de interactual con las mismas. Este conjunto de caracteristicas permiten realizar un proyecto con poco riesgo de perder lo ya realizado.
+
+El flujo de github provee un grupo de herramientas con las cuales realizar lo previo. REPOSITORIOS que en resumidas cuentas son carpetas de proyectos alojadas en la nube y a las cuales se les pueden cargar modificaciones, copiarlas o descargarlas. Copiarlas mediante el metodo CLONING, con el que se crea una copia de la carpeta en la nube en tu equipo y despues mediante GIT poder sincronizarlas. Y se sincronizan mediante el metodo COMMITING y PUSHING. Commiting implica crear un punto de partida, usando el ejmplo de antes, una posible rama y agregando los comntarios necesarios para resto de los participantes del equipo, a la que hacer el pushing, que es simplemente hacer impactar los cambios en el repositorio en la nube. 
+
+El manejo de GIT se utiliza regularmente mediante la colocacion de comandos en la respectiva consola. Actualmente los IDE traen o permiten mediante extensiones, disponer de herramientas visuales o comandos precargados hacer los cambios solicitados.
+
+Algunos de los comandos mas usados son: 
+*git init* creará un nuevo repositorio local GIT. Colocando [nombre del proyecto] a contiunacion del comando podes crear un nuevo repositorio.
+*git clone* se usa para copiar un repositorio. Si el repositorio está en un servidor remoto, usa:
+*git clone nombredeusuario@host:/path/to/repository* o para un repositorio local: *git clone /path/to/repository*
+*git add* se usa para agregar archivos al área de preparación.
+*git commit* creará una instantánea de los cambios y la guardará en el directorio git.A contiunacion del comando –m “El mensaje que acompaña al commit va aquí” para agregar un comentario al commit realizado.
+*git push* se usa para enviar confirmaciones locales a la rama maestra del repositorio remoto. Aquí está la estructura básica del código: *git push  origin <master>* Se puede modificar el <master> por el nombre de otra rama (branch).
+
+Estos son unos pocos de casi un centenar de posibles comandos que permites realizar una enorme cantidad de tareas y cambios en un proyecto.

@@ -14,6 +14,7 @@ import AddDoctor from './Components/addDoctor/addDoctor.js';
 function App() {
   const [patientId, setPatientId] = useState(null);
 
+
   return (
     <ContextoPaciente.Provider value={{ patientId, setPatientId }}>
       <Router>
@@ -34,8 +35,9 @@ function App() {
             </Routes>
           </div>
           <footer className="footer">
-            © 2024 Hospital XYZ. Todos los derechos reservados.
-          </footer>
+            © 2024 Hospital XYZ. Todos los derechos reservados.        
+           
+          </footer>       
         </div>
       </Router>
     </ContextoPaciente.Provider>
